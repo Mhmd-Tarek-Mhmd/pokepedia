@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import "./app.css";
 import Main from "../layouts/Main";
 import Header from "../layouts/Header";
+import Loader from "../../components/Loader";
+import SearchBar from "../../components/SearchBar";
+import Pagination from "../../components/Pagination";
+import PokemonList from "../../components/PokemonList";
 import { getFromStorage, setToStorage, getPageData } from "./helpers";
 
 function App() {
@@ -15,6 +19,7 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
+
     if (data.length) {
       const showedData = !query
         ? data
@@ -51,7 +56,21 @@ function App() {
     <>
       <Header />
       <Main>
-        <h1 className="text-black dark:text-white">App</h1>
+        {!isLoading ? (
+          <>
+            <SearchBar setQuery={setQuery} />
+            <PokemonList pokemonData={pokemonData} />
+            {pokemonData.length && (
+              <Pagination
+                page={page}
+                setPage={setPage}
+                paginationData={paginationData}
+              />
+            )}
+          </>
+        ) : (
+          <Loader />
+        )}
       </Main>
     </>
   );
