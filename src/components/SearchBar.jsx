@@ -1,16 +1,27 @@
 import React from "react";
 
 function SearchBar({ setQuery }) {
+  const [val, setVal] = React.useState("");
+
   const handleSubmitQuery = (e) => {
     e.preventDefault();
-    setQuery(e.target.elements.search.value);
+    setQuery(val);
+  };
+  const handleChangeVal = (e) => {
+    setVal(e.target.value);
+    !e.target.value && setQuery("");
   };
 
   return (
-    <form className="flex gap-x-2 h-8 mb-6" onSubmit={handleSubmitQuery}>
+    <form
+      role="search"
+      onSubmit={handleSubmitQuery}
+      className="flex gap-x-2 h-8 mb-6"
+    >
       <input
+        value={val}
         type="search"
-        name="search"
+        onChange={handleChangeVal}
         aria-label="Search by name"
         placeholder="Search by name"
         className="flex-1 outline-none pl-3 pr-2 rounded border border-gray-400 dark:border-transparent placeholder:font-medium placeholder:text-sm"

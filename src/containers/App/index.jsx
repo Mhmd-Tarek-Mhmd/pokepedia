@@ -24,13 +24,13 @@ function App() {
       const showedData = !query
         ? data
         : data.filter(({ name }) =>
-            name.toLowerCase().startsWith(query.toLowerCase())
+            name.toLowerCase().includes(query.toLowerCase())
           );
 
       getPageData(showedData, page).then(({ pagination, pokemon }) => {
         setPokemonData(pokemon);
         setPaginationData(pagination);
-        setIsLoading(false);
+        setTimeout(() => setIsLoading(false), 100);
       });
     }
   }, [data.length, page, query]);
@@ -56,9 +56,9 @@ function App() {
     <>
       <Header />
       <Main>
+        <SearchBar query={query} setQuery={setQuery} />
         {!isLoading ? (
           <>
-            <SearchBar setQuery={setQuery} />
             <PokemonList pokemonData={pokemonData} />
             {pokemonData.length && (
               <Pagination
