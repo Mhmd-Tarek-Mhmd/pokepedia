@@ -4,7 +4,7 @@ function Loader() {
   return (
     <h2
       aria-label="Loading"
-      className="w-7 h-7 mx-auto dark:text-white animate-spin"
+      className="w-7 h-7 mt-[calc((100vh-136px)/2)] mx-auto dark:text-white animate-spin"
     >
       <span className="sr-only">Loading</span>
       <SvgIcon viewBox="0 0 859 858.94">
