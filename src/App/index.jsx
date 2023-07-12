@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
 
-import "./app.css";
-import Main from "../layouts/Main";
-import Header from "../layouts/Header";
-import Loader from "../../components/Loader";
-import SearchBar from "../../components/SearchBar";
-import Pagination from "../../components/Pagination";
-import PokemonList from "../../components/PokemonList";
 import { getFromStorage, setToStorage, getPageData } from "./helpers";
+
+import { Header, Main } from "./layouts";
+import { Loader, SearchBar, Pagination, PokemonList } from "./components";
 
 function App() {
   const [page, setPage] = useState(1);

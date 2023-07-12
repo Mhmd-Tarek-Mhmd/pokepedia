@@ -1,3 +1,5 @@
+import ListItem from "./ListItem";
+
 function PokemonCard({ pokemon }) {
   return (
     <article className="py-4 max-w-[350px] bg-white dark:bg-[#1d1d1d] shadow-md dark:shadow-sm rounded">
@@ -80,19 +82,3 @@ function PokemonCard({ pokemon }) {
 }
 
 export default PokemonCard;
-
-const ListItem = ({ name, value, children, ...props }) => (
-  <li {...props}>
-    {name && (
-      <strong className="text-gray-500 dark:text-gray-400">{name}</strong>
-    )}
-
-    {children
-      ? children
-      : value && (
-          <span className="text-[#222] dark:text-white font-medium capitalize">
-            {value}
-          </span>
-        )}
-  </li>
-);
