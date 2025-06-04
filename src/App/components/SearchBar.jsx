@@ -24,7 +24,7 @@ function SearchBar({ setQuery }) {
         onChange={handleChangeVal}
         aria-label="Search by name"
         placeholder="Search by name"
-        className="min-w-[100px] flex-1 outline-none pl-3 pr-2 rounded border border-gray-400 dark:border-transparent placeholder:font-medium placeholder:text-sm"
+        className="min-w-[100px] flex-1 outline-none pl-3 pr-2 rounded border border-gray-400 placeholder:font-medium placeholder:text-sm dark:text-white"
       />
       <button
         type="submit"
