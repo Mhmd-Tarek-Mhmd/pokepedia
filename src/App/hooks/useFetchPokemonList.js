@@ -13,7 +13,7 @@ const useFetchPokemonList = (limit, offset) => {
   useEffect(() => {
     if (ref.current) {
       setIsLoading(true);
-      const fetch = (async () => {
+      (async () => {
         try {
           const data = await getPokemons(limit, offset);
           setHasMore(Boolean(data.next));
