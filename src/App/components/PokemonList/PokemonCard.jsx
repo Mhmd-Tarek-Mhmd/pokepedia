@@ -17,7 +17,7 @@ function PokemonCard({ pokemon }) {
         <h2 className="text-lg font-semibold mb-2 truncate">{pokemon.name}</h2>
 
         <div className="flex flex-wrap gap-2 mt-auto">
-          {pokemon.types.map((type) => (
+          {pokemon?.types?.map((type) => (
             <TypeBadge key={type} type={type}/>
           ))}
         </div>

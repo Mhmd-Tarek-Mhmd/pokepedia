@@ -1,0 +1,1 @@
+export { default as useFetchPokemonList } from "../hooks/useFetchPokemonList";
