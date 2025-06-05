@@ -1,15 +1,11 @@
+import Layout from "./layout";
 import Routes from "./routes";
-import { Header, Main } from "./layouts";
 
 function App() {
-
   return (
-    <>
-      <Header />
-      <Main>
-        <Routes />
-      </Main>
-    </>
+    <Layout>
+      <Routes />
+    </Layout>
   );
 }
 

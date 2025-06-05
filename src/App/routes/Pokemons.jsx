@@ -13,9 +13,15 @@ function Pokemons() {
   };
 
   return (
-    <>
+    <section>
       {!isInitialLoading ? (
         <>
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold mb-2">Pokémon Encyclopedia</h2>
+            <p className="text-gray-600 dark:text-gray-400">
+              Explore the world of Pokémon with detailed information on every species.
+            </p>
+          </div>
           <PokemonList pokemonData={data}/>
           {hasMore || !isLoading ? (
             <div className="mt-15 mb-10 text-center">
@@ -28,7 +34,7 @@ function Pokemons() {
       ) : (
         <Loader/>
       )}
-    </>
+    </section>
   );
 }
 

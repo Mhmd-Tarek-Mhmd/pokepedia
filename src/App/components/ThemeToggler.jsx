@@ -1,4 +1,5 @@
 import React from "react";
+import { MoonIcon, SunIcon } from "./ui/Icons.jsx";
 
 function ThemeToggler() {
   const [theme, setTheme] = React.useState(
@@ -16,10 +17,10 @@ function ThemeToggler() {
     <button
       type="button"
       onClick={handleToggleTheme}
-      className="w-8 h-8 grayscale-[0.4] text-lg dark:text-xl"
+      className="grayscale-[0.4] text-lg dark:text-xl cursor-pointer"
       aria-label={`Toggle to ${theme === "dark" ? "light" : "dark"} theme`}
     >
-      {theme === "dark" ? "☀" : "🌙"}
+      {theme === "dark" ? <SunIcon /> : <MoonIcon />}
     </button>
   );
 }
