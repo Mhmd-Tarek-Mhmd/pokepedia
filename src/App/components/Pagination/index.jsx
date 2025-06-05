@@ -1,7 +1,7 @@
 import { getPageRange } from "../../helpers";
 
-import SvgIcon from "../SvgIcon";
 import PaginationButton from "./PaginationButton";
+import { ChevronLeftIcon, ChevronRightIcon } from '../ui/Icons'
 
 function Pagination({ paginationData, page, setPage }) {
   const pageRange = getPageRange(paginationData.lastPage, page);
@@ -14,9 +14,7 @@ function Pagination({ paginationData, page, setPage }) {
           isDisabled={paginationData.page === 1}
           onClick={() => page !== 1 && setPage(page - 1)}
         >
-          <SvgIcon width="24" height="24">
-            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
-          </SvgIcon>
+          <ChevronLeftIcon />
         </PaginationButton>
 
         {pageRange.map((n, i) =>
@@ -47,9 +45,7 @@ function Pagination({ paginationData, page, setPage }) {
           isDisabled={paginationData.page === paginationData.lastPage}
           onClick={() => !paginationData.lastPage && setPage(page + 1)}
         >
-          <SvgIcon width="24" height="24">
-            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
-          </SvgIcon>
+          <ChevronRightIcon />
         </PaginationButton>
       </ul>
     </nav>
