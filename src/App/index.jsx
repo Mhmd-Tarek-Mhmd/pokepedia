@@ -1,10 +1,10 @@
 import Layout from "./layout";
-import Routes from "./routes";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
     <Layout>
-      <Routes />
+      <HomePage />
     </Layout>
   );
 }

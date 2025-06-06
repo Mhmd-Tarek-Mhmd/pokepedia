@@ -6,20 +6,6 @@ export const getFromStorage = () =>
 export const setToStorage = (data) =>
   localStorage.setItem(storageKey, JSON.stringify(data));
 
-const getAbilities = async (pokemon) => {
-  return await Promise.all(
-    pokemon.abilities.map(async ({ability: {name, url}}) => {
-      const res = await fetch(url);
-      const data = await res.json();
-      const desc = data?.flavor_text_entries.filter(
-        ({language}) => language.name === "en"
-      )?.[0]?.flavor_text;
-
-      return {name, desc};
-    })
-  );
-};
-
 export const formatPokemon = (pokemon) => {
   return {
     id: pokemon.id,

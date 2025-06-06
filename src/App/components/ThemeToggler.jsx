@@ -1,5 +1,5 @@
 import React from "react";
-import { MoonIcon, SunIcon } from "./ui/Icons.jsx";
+import { MoonIcon, SunIcon } from "./ui";
 
 function ThemeToggler() {
   const [theme, setTheme] = React.useState(

@@ -1,4 +1,4 @@
-import { SvgIcon } from "./ui/Icons";
+import { SvgIcon } from "./Icons.jsx";
 
 function Loader() {
   return (

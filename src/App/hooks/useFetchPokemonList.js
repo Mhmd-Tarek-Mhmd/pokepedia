@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { getPokemons, getPokemon } from "../lib/api";
-import { formatPokemon } from "../helpers";
+import { formatPokemon } from "../lib/helpers";
 
 const useFetchPokemonList = (limit, offset) => {
   const [error, setError] = useState(null);
@@ -12,7 +12,7 @@ const useFetchPokemonList = (limit, offset) => {
 
   useEffect(() => {
     if (ref.current) {
-      setIsLoading(true);
+      setIsLoading(() => true);
       (async () => {
         try {
           const data = await getPokemons(limit, offset);
@@ -23,8 +23,8 @@ const useFetchPokemonList = (limit, offset) => {
         } catch (err) {
           setError(err);
         } finally {
-          setIsLoading(false);
-          setIsInitialLoading(false);
+          setIsLoading(() => false);
+          setIsInitialLoading(() => false);
         }
       })();
     } else {

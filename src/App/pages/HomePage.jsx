@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useFetchPokemonList } from "../hooks";
-import { Loader, PokemonList } from "../components";
+
+import { Loader } from "../components/ui";
+import { PokemonsList } from "../containers";
 
 const limit = 20;
 
-function Pokemons() {
+function HomePage() {
   const [offset, setOffset] = useState(0);
   const { data, error, hasMore, isInitialLoading, isLoading } = useFetchPokemonList(limit, offset);
 
@@ -22,7 +24,7 @@ function Pokemons() {
               Explore the world of Pokémon with detailed information on every species.
             </p>
           </div>
-          <PokemonList pokemonData={data}/>
+          <PokemonsList pokemons={data} />
           {hasMore || !isLoading ? (
             <div className="mt-15 mb-10 text-center">
               <button className="btn w-40 disabled:opacity-20 disabled:cursor-no-drop" onClick={loadMore}>
@@ -38,4 +40,4 @@ function Pokemons() {
   );
 }
 
-export default Pokemons;
+export default HomePage;
