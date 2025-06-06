@@ -7,6 +7,7 @@ export const setToStorage = (data) =>
   localStorage.setItem(storageKey, JSON.stringify(data));
 
 export const formatPokemon = (pokemon) => {
+  console.log(pokemon)
   return {
     id: pokemon.id,
     name: pokemon.name,
@@ -14,6 +15,7 @@ export const formatPokemon = (pokemon) => {
     height: pokemon.height, // cm
     baseExperience: pokemon.base_experience,
     types: pokemon.types.map(({ type }) => type.name),
+    stats: pokemon.stats.map((s) => ({ name: s?.stat?.name, base: s?.base_stat })),
     abilities: pokemon?.abilities?.map((a) => ({
       name: a.name,
       description: a?.flavor_text_entries

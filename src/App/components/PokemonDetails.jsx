@@ -1,16 +1,18 @@
+import PokemonStats from "./PokemonStats.jsx";
+
 const PokemonDetails = ({ pokemon }) => {
   return (
     <div className="container">
       <section className="py-8">
-        <div className="flex flex-wrap-reverse md:flex-nowrap gap-8">
+        <div className="flex items-center flex-wrap-reverse md:flex-nowrap gap-8">
           <div className="flex flex-col justify-between">
             <div>
               <div className="flex items-baseline mb-2">
-                <h1 className="text-3xl md:text-4xl font-bold mr-3 capitalize">{pokemon?.name}</h1>
+                <h2 className="text-3xl md:text-4xl font-bold mr-3 capitalize">{pokemon?.name}</h2>
               </div>
 
               {pokemon?.species?.genus && (
-                <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                <p className="text-2xl text-gray-700 dark:text-gray-300 mb-4">
                   {pokemon.species.genus}
                 </p>
               )}
@@ -22,7 +24,7 @@ const PokemonDetails = ({ pokemon }) => {
               </div>
 
               {pokemon?.species?.description && (
-                <blockquote className="italic text-gray-700 dark:text-gray-300 border-l-4 border-gray-300 dark:border-gray-600 pl-4 py-1">
+                <blockquote className="text-lg italic text-gray-700 dark:text-gray-300 border-l-4 border-gray-300 dark:border-gray-600 pl-4 py-1">
                   {pokemon.species.description}
                 </blockquote>
               )}
@@ -58,22 +60,35 @@ const PokemonDetails = ({ pokemon }) => {
 
       <section className="py-8">
         <h2 className="text-2xl font-bold mb-4">Abilities</h2>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {pokemon?.abilities?.map((ability) => (
-            <li
-              key={ability.name}
-              className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm"
-            >
-              <h3 className="font-medium mb-1 capitalize">
-                {(ability.name.replace('-', ' '))}
-              </h3>
-              <p className='text-xs text-gray-500 dark:text-gray-400'>{ability.description}</p>
-            </li>
-          ))}
-        </ul>
+        <PokemonAbilities abilities={pokemon?.abilities} />
+      </section>
+
+      <section className="py-8">
+        <h2 className="text-2xl font-bold mb-4">Base Stats</h2>
+        <PokemonStats stats={pokemon?.stats} />
       </section>
     </div>
   )
 }
 
 export default PokemonDetails;
+
+const PokemonAbilities = ({ abilities }) => {
+  return (
+    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {abilities?.map((ability) => (
+        <li
+          key={ability.name}
+          className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm"
+        >
+          <article>
+            <h3 className="font-medium mb-1 capitalize">
+              {(ability.name.replace('-', ' '))}
+            </h3>
+            <p className='text-xs text-gray-500 dark:text-gray-400'>{ability.description}</p>
+          </article>
+        </li>
+      ))}
+    </ul>
+  );
+}
