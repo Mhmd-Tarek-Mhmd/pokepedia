@@ -1,11 +1,26 @@
+import { useState } from "react";
 import PokemonCard from "./PokemonCard";
+import PokemonModal from "../PokemonModal";
 
 function PokemonList({ pokemonData }) {
+  const [modal, setModal] = useState(null);
+
+  const handleOpenModal = (data) => {
+    setModal(data);
+    modalRef?.current?.showModal();
+  }
+  const handleCloseModal = () => {
+    setModal(null);
+    modalRef?.current?.close();
+  }
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
       {pokemonData.length ? (
         pokemonData.map((pokemon) => (
-          <PokemonCard key={pokemon.id} pokemon={pokemon} />
+          <button onClick={() => handleOpenModal({ pokemon })} key={pokemon.id}>
+            <PokemonCard pokemon={pokemon} />
+          </button>
         ))
       ) : (
         <p
@@ -16,6 +31,8 @@ function PokemonList({ pokemonData }) {
           No pokemons matched
         </p>
       )}
+
+      <PokemonModal isOpen={Boolean(modal)} onClose={handleCloseModal} {...modal} />
     </div>
   );
 }

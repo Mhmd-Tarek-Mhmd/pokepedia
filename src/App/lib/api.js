@@ -7,5 +7,17 @@ export const getPokemons = async (limit = 20, offset = 0) => {
 
 export const getPokemon = async (id) => {
   const res = await fetch(`${API_URL}/pokemon/${id}`);
-  return res.json();
+  const data = await res.json();
+
+  const speciesRes = await fetch(data?.species?.url);
+  const species = await speciesRes.json();
+
+  const abilities = await Promise.all(
+    data?.abilities.map(async (a) => {
+      const res = await fetch(a?.ability?.url);
+      return await res.json();
+    })
+  );
+
+  return { ...data, species, abilities };
 }
