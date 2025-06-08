@@ -11,8 +11,10 @@ const useFetchPokemonList = (limit, offset) => {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
   useEffect(() => {
+    console.log('Fetching PokemonList...');
     if (ref.current) {
-      setIsLoading(() => true);
+      console.log("Fetching PokemonList {current}...");
+      setIsLoading(true);
       (async () => {
         try {
           const data = await getPokemons(limit, offset);
@@ -28,6 +30,7 @@ const useFetchPokemonList = (limit, offset) => {
         }
       })();
     } else {
+      console.log("Fetching PokemonList {current else}...");
       ref.current = true;
     }
   }, [limit, offset]);
