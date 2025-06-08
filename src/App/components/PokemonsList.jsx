@@ -16,7 +16,11 @@ function PokemonsList({ pokemons }) {
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {pokemons.map((pokemon) => (
-          <button key={pokemon.id} onClick={() => handleOpenModal({ pokemon })}>
+          <button
+            key={pokemon.id}
+            onClick={() => handleOpenModal({ pokemon })}
+            className="focus-visible:outline-slate-200 dark:focus-visible:outline-slate-600"
+          >
             <PokemonCard pokemon={pokemon}/>
           </button>
         ))}
