@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { getPokemons, getPokemon } from "../lib/api";
-import { formatPokemon } from "../lib/helpers";
+import { formatPokemon } from "../lib/utils";
 
 const useFetchPokemonList = (limit, offset) => {
   const [error, setError] = useState(null);
