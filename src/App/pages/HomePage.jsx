@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useFetchPokemonList } from "../hooks";
 
 import { Loader } from "../components/ui";
-import { PokemonsList } from "../containers";
+import { PokemonsList } from "../components";
 
 const limit = 20;
 
-function HomePage() {
+export default function HomePage() {
   const [offset, setOffset] = useState(0);
-  const { data, error, hasMore, isInitialLoading, isLoading } = useFetchPokemonList(limit, offset);
+  const {data, error, hasMore, isInitialLoading, isLoading} = useFetchPokemonList(limit, offset);
 
   const loadMore = () => {
     setOffset(prev => prev + limit);
@@ -24,14 +24,23 @@ function HomePage() {
               Explore the world of Pokémon with detailed information on every species.
             </p>
           </div>
-          <PokemonsList pokemons={data} />
-          {hasMore || !isLoading ? (
-            <div className="mt-15 mb-10 text-center">
-              <button className="btn w-40 disabled:opacity-20 disabled:cursor-no-drop" onClick={loadMore}>
-                Load More
-              </button>
-            </div>
-          ) : null}
+
+          {data?.length ? (
+            <>
+              <PokemonsList pokemons={data} />
+              {hasMore || !isLoading ? (
+                <div className="mt-15 mb-10 text-center">
+                  <button className="btn w-40 disabled:opacity-20 disabled:cursor-no-drop" onClick={loadMore}>
+                    Load More
+                  </button>
+                </div>
+              ) : null}
+            </>
+          ) : (
+            <p role="alert" className="alert">
+              No Pokémon found
+            </p>
+          )}
         </>
       ) : (
         <Loader/>
@@ -39,5 +48,3 @@ function HomePage() {
     </section>
   );
 }
-
-export default HomePage;

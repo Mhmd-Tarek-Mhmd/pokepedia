@@ -1,6 +1,6 @@
 import { ThemeToggler } from "../components";
 
-function Header() {
+export default function Header() {
   return (
     <header className="h-20 grid place-items-center bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-10">
       <div className="container flex items-center justify-between">
@@ -15,5 +15,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;

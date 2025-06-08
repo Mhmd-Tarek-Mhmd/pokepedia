@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { XIcon } from "./Icons.jsx";
+import { XIcon } from "./Icons";
 
 export default function Modal({ isOpen, onClose, children, ...props }) {
   const ref = useRef(null);
