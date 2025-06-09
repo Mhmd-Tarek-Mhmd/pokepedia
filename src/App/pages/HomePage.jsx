@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetchPokemonList } from "../hooks";
+
+import { getPokemons } from "../lib/api.js";
 
 import { PokemonsList } from "../components";
 import { Loader, AutocompleteInput } from "../components/ui";
@@ -12,23 +14,11 @@ export default function HomePage() {
   const [options, setOptions] = useState({ pokemons: [] });
   const {
     data,
-    error,
     reset,
     hasMore,
     isLoading,
     isInitialLoading,
-  } = useFetchPokemonList({
-    limit,
-    offset,
-    filters,
-    onSuccess: (result) => {
-      setOptions(prev => ({
-        ...prev,
-        pokemons: result?.map(d => ({ value: d?.id, label: d?.name, avatar: d?.frontImage }))
-      }));
-    },
-    onError: (error) => {},
-  });
+  } = useFetchPokemonList({ limit, offset, filters });
 
   const loadMore = () => {
     setOffset(prev => prev + limit);
@@ -39,6 +29,14 @@ export default function HomePage() {
     setFilters(prev => ({ ...prev, query: val }));
   }
 
+  useEffect(() => {
+    (async () => {
+      const data = await getPokemons(99999);
+      const pokemons = data?.results?.map(r => ({ label: r.name, value: r.name }));
+      setOptions(prev => ({ ...prev, pokemons }));
+    })();
+  }, []);
+
   return (
     <section>
       <h2 className="text-3xl font-bold mb-2">Pokémon Encyclopedia</h2>
@@ -48,7 +46,7 @@ export default function HomePage() {
 
       {/* Filters */}
       <div className="bg-gray-white dark:bg-gray-800 shadow-sm  rounded-2xl p-6 mb-7">
-        <AutocompleteInput options={options?.pokemons} onSelect={handleChangeQuery} />
+        <AutocompleteInput options={options?.pokemons || []} onSelect={handleChangeQuery} />
       </div>
 
       {!isInitialLoading ? (

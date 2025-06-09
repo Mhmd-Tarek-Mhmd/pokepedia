@@ -34,10 +34,10 @@ const useFetchPokemonList = ({ limit, offset, filters, onSuccess, onError }) => 
         }
 
         setData(results);
-        onSuccess(results);
+        onSuccess?.(results);
       } catch (err) {
-        onError(err);
         setError(err);
+        onError?.(err);
       } finally {
         setIsLoading(() => false);
         setIsInitialLoading(() => false);

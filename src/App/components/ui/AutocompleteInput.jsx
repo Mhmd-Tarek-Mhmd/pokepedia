@@ -138,7 +138,7 @@ const AutocompleteInput = ({ options, onSelect, ...props }) => {
           {filteredOptions.length > 0 ? filteredOptions.map((option, index) => (
             <li
               role="option"
-              key={option.id}
+              key={option.value}
               aria-selected={selectedOption === option.id}
               onMouseEnter={() => setFocusedIndex(index)}
               onMouseDown={() => handleOptionSelect(option)}
