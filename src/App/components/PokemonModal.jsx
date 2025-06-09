@@ -27,7 +27,7 @@ const PokemonModal = ({ pokemon, isOpen, onClose }) => {
                 </div>
 
                 {pokemon?.species?.description && (
-                  <blockquote className="text-lg italic text-gray-700 dark:text-gray-300 border-l-4 border-gray-300 dark:border-gray-600 pl-4 py-1">
+                  <blockquote className="min-h-[70px] text-lg italic text-gray-700 dark:text-gray-300 border-l-4 border-gray-300 dark:border-gray-600 pl-4 py-1">
                     {pokemon.species.description}
                   </blockquote>
                 )}
@@ -55,7 +55,7 @@ const PokemonModal = ({ pokemon, isOpen, onClose }) => {
               <img
                 alt={pokemon?.name}
                 src={pokemon?.frontImage}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain min-h-[35 0px]"
               />
             </div>
           </div>

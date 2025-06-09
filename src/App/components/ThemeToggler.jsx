@@ -17,7 +17,7 @@ function ThemeToggler() {
     <button
       type="button"
       onClick={handleToggleTheme}
-      className="grayscale-[0.4] cursor-pointer"
+      className="icon-btn cursor-pointer text-black dark:text-white"
       aria-label={`Toggle to ${theme === "dark" ? "light" : "dark"} theme`}
     >
       {theme === "dark" ? <SunIcon /> : <MoonIcon />}

@@ -28,7 +28,7 @@ export default function PokemonStats({ stats }) {
   const totalStats = stats?.reduce((sum, stat) => sum + stat?.base, 0);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md space-y-4">
+    <div className="bg-surface rounded-2xl p-6 shadow-md space-y-4">
       {stats?.map((stat) => {
         const statName = stat?.name;
         const maxStat = maxStats?.[statName] || 100;
