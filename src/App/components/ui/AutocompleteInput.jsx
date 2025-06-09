@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import { SearchIcon, XIcon } from "./Icons";
 
 const AutocompleteInput = ({ options, onSelect, ...props }) => {
@@ -90,13 +91,15 @@ const AutocompleteInput = ({ options, onSelect, ...props }) => {
 
   return (
     <div
-      tabIndex="0"
       role="combobox"
       aria-haspopup="menu"
       aria-controls={"menu-" + menuId}
       aria-expanded={Boolean(showSuggestions)}
       aria-label={props?.placeholder || "Start typing to search"}
-      className="relative flex justify-between items-center gap-3 p-3 border-2 border-slate-300 dark:border-slate-600 rounded-lg"
+      className={clsx(
+        props?.className,
+        "relative flex justify-between items-center gap-3 p-3 border-2 border-slate-300 dark:border-slate-600 rounded-lg has-focus:outline has-focus:outline-slate-300"
+      )}
     >
       <div aria-hidden="true" className="pointer-events-none text-slate-400">
         <SearchIcon />
@@ -112,7 +115,7 @@ const AutocompleteInput = ({ options, onSelect, ...props }) => {
         onKeyDown={handleKeyDown}
         onChange={handleInputChange}
         placeholder="Start typing to search..."
-        className="w-full border-0 outline-0 capitalize"
+        className="w-full border-0 outline-0 capitalize focus:ring-0"
         {...props}
       />
 
