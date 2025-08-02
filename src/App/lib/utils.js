@@ -1,11 +1,3 @@
-const storageKey = "poképedia";
-
-export const getFromStorage = () =>
-  JSON.parse(localStorage.getItem(storageKey));
-
-export const setToStorage = (data) =>
-  localStorage.setItem(storageKey, JSON.stringify(data));
-
 export const formatPokemon = (pokemon) => {
   return {
     id: pokemon.id,
