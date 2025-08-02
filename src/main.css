@@ -49,7 +49,7 @@
   }
   
   .border-surface {
-    @apply border-gray-200 dark:border-slate-700;
+    @apply border border-gray-200 dark:border-slate-700;
   }
   .border-surface-interaction {
   
@@ -86,7 +86,7 @@
     @apply hover:not-disabled:bg-gray-50 dark:hover:not-disabled:bg-gray-700 focus-visible:not-disabled:bg-gray-50 dark:focus-visible:not-disabled:bg-gray-700; /* bg-surface-interaction */
   }
   .icon-btn {
-    @apply rounded-full p-2  transition-colors focus:outline-none;
+    @apply rounded-full p-2  transition-colors focus:outline-none  cursor-pointer;
     @apply hover:bg-gray-50 dark:hover:bg-gray-900 focus-visible:bg-gray-50 dark:focus-visible:bg-gray-900; /* bg */
     @apply text-gray-400 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300 focus-visible:text-gray-600 dark:focus-visible:text-gray-300; /* text */
   }

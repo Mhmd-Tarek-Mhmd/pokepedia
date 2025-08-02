@@ -19,7 +19,7 @@ function PokemonsList({ pokemons }) {
           <button
             key={pokemon.id}
             onClick={() => handleOpenModal({ pokemon })}
-            className="focus-visible:outline-slate-200 dark:focus-visible:outline-slate-600"
+            className="focus-visible:outline-slate-200 dark:focus-visible:outline-slate-600 cursor-pointer"
           >
             <PokemonCard pokemon={pokemon}/>
           </button>
