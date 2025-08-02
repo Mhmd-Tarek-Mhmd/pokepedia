@@ -44,7 +44,7 @@ export const SearchIcon = (props) => (
 );
 
 export const ChevronDownIcon = (props) => (
-  <SvgIcon fill="none" strokeWidth={1.5} stroke="currentColor" size="size-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" {...props}>
+  <SvgIcon fill="none" strokeWidth={2} stroke="currentColor" size="size-6" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <path d="m6 9 6 6 6-6" />
   </SvgIcon>
 );
