@@ -1,8 +1,8 @@
 import React from "react";
 import clsx from "clsx";
-import { SearchIcon, XIcon } from "./Icons";
+import { SearchIcon, XIcon, ChevronDownIcon } from "./Icons";
 
-const AutocompleteInput = ({ options, onSelect, ...props }) => {
+const AutocompleteInput = ({ options, onSelect, isDestroy, isSelect, className, ...props }) => {
   const menuId = React.useId();
   const inputRef = React.useRef(null);
   const [inputValue, setInputValue] = React.useState("");
@@ -10,9 +10,12 @@ const AutocompleteInput = ({ options, onSelect, ...props }) => {
   const [focusedIndex, setFocusedIndex] = React.useState(-1);
   const [showSuggestions, setShowSuggestions] = React.useState(false);
 
+  // Constants
+  const placeholder = props?.placeholder || isSelect ? "Select an option" : "Start typing to search...";
+
   // Filter options based on input value
   const filteredOptions = options.filter(option =>
-    option.label.toLowerCase().includes(inputValue.toLowerCase())
+    isSelect && !inputValue ? option : option.label.toLowerCase().includes(inputValue.toLowerCase())
   );
 
   const handleInputChange = (e) => {
@@ -24,21 +27,21 @@ const AutocompleteInput = ({ options, onSelect, ...props }) => {
   };
 
   const handleOptionSelect = (option) => {
+    inputRef.current?.blur();
+
+    if (option.label === selectedOption?.label) return;
+    onSelect(option.value);
     setSelectedOption(option);
     setInputValue(option.label);
-    setShowSuggestions(false);
-    setFocusedIndex(-1);
-    inputRef.current?.blur();
-    onSelect(option.value);
   };
 
   const handleClear = () => {
     setInputValue("");
+    inputRef.current?.blur();
+
+    if (!selectedOption) return;
     setSelectedOption(null);
-    setShowSuggestions(false);
-    setFocusedIndex(-1);
-    inputRef.current?.focus();
-    onSelect(null);
+    onSelect?.(null);
   };
 
   const handleKeyDown = (e) => {
@@ -63,16 +66,16 @@ const AutocompleteInput = ({ options, onSelect, ...props }) => {
           handleOptionSelect(filteredOptions[focusedIndex]);
         }
         break;
+      case 'Tab':
       case "Escape":
-        setShowSuggestions(false);
-        setFocusedIndex(-1);
         inputRef.current?.blur();
-        break;
+        break
     }
   };
 
   const handleFocus = () => {
-    if (inputValue.length > 0) {
+    if (isSelect || inputValue.length > 0) {
+      if (selectedOption) return;
       setShowSuggestions(true);
     }
   };
@@ -95,37 +98,43 @@ const AutocompleteInput = ({ options, onSelect, ...props }) => {
       aria-haspopup="menu"
       aria-controls={"menu-" + menuId}
       aria-expanded={Boolean(showSuggestions)}
-      aria-label={props?.placeholder || "Start typing to search"}
+      aria-label={placeholder}
       className={clsx(
         props?.className,
-        "relative flex justify-between items-center gap-3 p-3 border-2 border-slate-300 dark:border-slate-600 rounded-lg has-focus:outline has-focus:outline-slate-300"
+        "relative w-full h-full flex justify-between items-center gap-3 p-3 border-surface rounded-lg has-focus:border has-focus:border-slate-400"
       )}
     >
-      <div aria-hidden="true" className="pointer-events-none text-slate-400">
-        <SearchIcon />
-      </div>
+      {props?.icon || <SearchIcon />}
 
       <input
         type="text"
         ref={inputRef}
-        aria-hidden="true"
         value={inputValue}
         onBlur={handleBlur}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
         onChange={handleInputChange}
-        placeholder="Start typing to search..."
-        className="w-full border-0 outline-0 capitalize focus:ring-0"
-        {...props}
+        placeholder={placeholder}
+        aria-label={placeholder}
+        disabled={Boolean(selectedOption)}
+        className="absolute w-full h-full border-none outline-none ps-10 placeholder:text-gray-400 capitalize"
       />
 
       {inputValue && (
         <button
           onClick={handleClear}
-          className="flex items-center hover:text-slate-500 dark:hover:text-white text-slate-400 transition-colors cursor-pointer"
+          className="flex items-center ms-auto hover:text-slate-500 dark:hover:text-white text-slate-400 transition-colors cursor-pointer z-40"
         >
           <XIcon />
         </button>
+      )}
+
+      {isSelect && (
+        <ChevronDownIcon
+          className={`transition-transform duration-200 ${
+            showSuggestions ? 'rotate-180' : ''
+          }`}
+        />
       )}
 
       {/* Suggestions Menu */}
@@ -138,15 +147,15 @@ const AutocompleteInput = ({ options, onSelect, ...props }) => {
           {filteredOptions.length > 0 ? filteredOptions.map((option, index) => (
             <li
               role="option"
-              key={option.value}
+              key={option.label}
               aria-selected={selectedOption === option.id}
               onMouseEnter={() => setFocusedIndex(index)}
               onMouseDown={() => handleOptionSelect(option)}
-              className="flex items-center space-x-3 px-4 py-3 cursor-pointer transition-all duration-150 hover:bg-slate-100 dark:hover:bg-slate-600"
+              className={clsx("flex items-center space-x-3 px-4 py-3 cursor-pointer transition-all duration-150 hover:bg-slate-100 dark:hover:bg-slate-600", {"bg-slate-600": focusedIndex === index})}
             >
-              {option?.avatar ? (
+              {option?.icon ? (
                 <span aria-hidden="true" className="relative flex size-16 shrink-0 overflow-hidden rounded-full">
-                  <img className="aspect-square size-full" alt="" src={option.avatar}/>
+                  <img className="aspect-square size-full" alt="" src={option.icon}/>
                 </span>
               ) : null}
               <span className="capitalize text-xl">{option.label}</span>
