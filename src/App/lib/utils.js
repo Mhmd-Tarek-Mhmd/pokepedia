@@ -28,6 +28,7 @@ export const formatPokemon = (pokemon) => {
     frontImage:
       pokemon.sprites?.other?.["official-artwork"]?.front_default ||
       pokemon.sprites?.front_default ||
-      pokemon.sprites?.other.dream_world?.front_default,
+      pokemon.sprites?.other.dream_world?.front_default ||
+      "placeholder.svg",
   };
 };
