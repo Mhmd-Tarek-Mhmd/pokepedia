@@ -53,6 +53,7 @@ const PokemonModal = ({ pokemon, isOpen, onClose }) => {
 
             <div className="flex items-center justify-center md:max-w-[400px] mx-auto">
               <img
+                loading="lazy"
                 alt={pokemon?.name}
                 src={pokemon?.frontImage}
                 className="w-full h-full object-contain min-h-[35 0px]"

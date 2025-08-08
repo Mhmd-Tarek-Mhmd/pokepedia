@@ -7,6 +7,7 @@ export default function PokemonCard({ pokemon }) {
       <div className="flex flex-col p-4">
         <div className="relative aspect-square bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden mb-4">
           <img
+            loading="lazy"
             alt={pokemon.name}
             src={pokemon.frontImage}
             className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-100"
