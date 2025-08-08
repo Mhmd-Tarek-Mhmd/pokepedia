@@ -29,7 +29,7 @@ export const PokemonTypesBadges = ({ pokemon, className }) => {
       className={clsx("flex flex-wrap gap-2", className)}
     >
       {pokemon?.types?.map((type) => (
-        <li key={type} className={`badge ${typeColors[type]}`}>
+        <li key={type} className={`badge text-white ${typeColors[type]}`}>
           {type}
         </li>
       ))}
