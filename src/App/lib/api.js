@@ -21,3 +21,21 @@ export const getPokemon = async (id) => {
 
   return { ...data, species, abilities };
 }
+
+export const getPokemonTypes = async () => {
+  const res = await fetch(`${API_URL}/type`);
+  const data = await res.json();
+  const types = await Promise.all(
+    data?.results.map(async (r) => await getPokemonType(r?.name))
+  );
+
+  return types?.reduce((acc, curr) => {
+    if (!curr?.pokemon?.length) return acc;
+    return [...acc, { label: curr?.name, value: curr?.pokemon?.map(p => p?.pokemon?.name) }];
+  }, []);
+}
+
+export const getPokemonType = async (id) => {
+  const res = await fetch(`${API_URL}/type/${id}`);
+  return await res.json();
+}

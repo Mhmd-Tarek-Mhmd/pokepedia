@@ -5,23 +5,24 @@ import { SearchIcon, XIcon, ChevronDownIcon } from "./Icons";
 const AutocompleteInput = ({ options, onSelect, isDestroy, isSelect, className, ...props }) => {
   const menuId = React.useId();
   const inputRef = React.useRef(null);
-  const [inputValue, setInputValue] = React.useState("");
-  const [selectedOption, setSelectedOption] = React.useState(null);
+  const [searchVal, setSearchVal] = React.useState("");
   const [focusedIndex, setFocusedIndex] = React.useState(-1);
   const [showSuggestions, setShowSuggestions] = React.useState(false);
 
   // Constants
+  const selectedOption  = props?.value || null;
   const placeholder = props?.placeholder || (isSelect ? "Select an option" : "Start typing to search...");
-
-  // Filter options based on input value
-  const filteredOptions = options.filter(option =>
-    isSelect && (selectedOption ? true : !inputValue) ? option : option.label.toLowerCase().includes(inputValue.toLowerCase())
-  );
+  const filteredOptions = options.filter(option => {
+    if (searchVal) return option.label.toLowerCase().includes(searchVal.toLowerCase());
+    if (isSelect) return true;
+    return option;
+  });
 
   const handleInputChange = (e) => {
     const value = e.target.value;
-    setInputValue(value);
-    setSelectedOption(null);
+    setSearchVal(value);
+
+    if (!isSelect) onSelect(null);
     setShowSuggestions(value.length > 0);
     setFocusedIndex(-1);
   };
@@ -30,18 +31,14 @@ const AutocompleteInput = ({ options, onSelect, isDestroy, isSelect, className, 
     inputRef.current?.blur();
 
     if (option.label === selectedOption?.label) return;
-    onSelect(option.value);
-    setSelectedOption(option);
-    setInputValue(option.label);
+    onSelect(option);
+    setSearchVal("");
   };
 
   const handleClear = () => {
-    setInputValue("");
+    setSearchVal("");
     inputRef.current?.blur();
-
-    if (!selectedOption) return;
-    setSelectedOption(null);
-    onSelect?.(null);
+    onSelect(null);
   };
 
   const handleKeyDown = (e) => {
@@ -74,7 +71,10 @@ const AutocompleteInput = ({ options, onSelect, isDestroy, isSelect, className, 
   };
 
   const handleFocus = () => {
-    if (isSelect || inputValue.length > 0) {
+    // Clear input value when focusing to allow for new search, but keep selectedOption
+    if (selectedOption) setSearchVal("");
+
+    if (isSelect || searchVal.length > 0) {
       setShowSuggestions(true);
     }
   };
@@ -108,7 +108,7 @@ const AutocompleteInput = ({ options, onSelect, isDestroy, isSelect, className, 
       <input
         type="text"
         ref={inputRef}
-        value={inputValue}
+        value={showSuggestions ? searchVal : (selectedOption?.label || searchVal)}
         onBlur={handleBlur}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
@@ -119,7 +119,7 @@ const AutocompleteInput = ({ options, onSelect, isDestroy, isSelect, className, 
         className="absolute w-full h-full border-none outline-none ps-10 placeholder:text-gray-400 capitalize placeholder:normal-case"
       />
 
-      {inputValue && (
+      {(searchVal || selectedOption) && (
         <button
           onClick={handleClear}
           className="flex items-center ms-auto hover:text-slate-500 dark:hover:text-white text-slate-400 transition-colors cursor-pointer z-40"
@@ -161,11 +161,11 @@ const AutocompleteInput = ({ options, onSelect, isDestroy, isSelect, className, 
             </li>
           )) : null}
 
-          {!filteredOptions.length && inputValue ? (
+          {!filteredOptions.length && searchVal ? (
             <li className="px-4 py-6 text-center text-slate-400">
               <SearchIcon className="w-8 h-8 mx-auto mb-2 opacity-50"/>
               No options found matching
-              <span className="block font-medium text-slate-300">"{inputValue}"</span>
+              <span className="block font-medium text-slate-300">"{searchVal}"</span>
             </li>
           ) : null}
         </ul>

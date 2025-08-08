@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { formatPokemon } from "../lib/utils";
 import { getPokemons, getPokemon } from "../lib/api";
 
-const useFetchPokemonList = ({ limit, offset, filters, onSuccess, onError }) => {
+const useFetchPokemonList = ({ limit, offset, ids, onSuccess, onError }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
@@ -21,10 +21,11 @@ const useFetchPokemonList = ({ limit, offset, filters, onSuccess, onError }) => 
       try {
         let results = [];
 
-        if (filters?.query) {
+        if (ids?.length) {
           setHasMore(false);
-          const pokemon = await getPokemon(filters.query);
-          results = [formatPokemon(pokemon)];
+          const pokemonPromises = ids.map((id) => getPokemon(id));
+          const pokemons = await Promise.all(pokemonPromises);
+          results = pokemons.map(formatPokemon);
         } else {
           const pokemonsData = await getPokemons(limit, offset);
           setHasMore(Boolean(pokemonsData.next));
@@ -43,7 +44,7 @@ const useFetchPokemonList = ({ limit, offset, filters, onSuccess, onError }) => 
         setIsInitialLoading(() => false);
       }
     })();
-  }, [limit, offset, filters?.query]);
+  }, [limit, offset, JSON.stringify(ids)]);
 
   return { data, error, hasMore, isInitialLoading, isLoading, reset };
 }
