@@ -11,11 +11,11 @@ const AutocompleteInput = ({ options, onSelect, isDestroy, isSelect, className, 
   const [showSuggestions, setShowSuggestions] = React.useState(false);
 
   // Constants
-  const placeholder = props?.placeholder || isSelect ? "Select an option" : "Start typing to search...";
+  const placeholder = props?.placeholder || (isSelect ? "Select an option" : "Start typing to search...");
 
   // Filter options based on input value
   const filteredOptions = options.filter(option =>
-    isSelect && !inputValue ? option : option.label.toLowerCase().includes(inputValue.toLowerCase())
+    isSelect && (selectedOption ? true : !inputValue) ? option : option.label.toLowerCase().includes(inputValue.toLowerCase())
   );
 
   const handleInputChange = (e) => {
@@ -75,7 +75,6 @@ const AutocompleteInput = ({ options, onSelect, isDestroy, isSelect, className, 
 
   const handleFocus = () => {
     if (isSelect || inputValue.length > 0) {
-      if (selectedOption) return;
       setShowSuggestions(true);
     }
   };
@@ -116,8 +115,8 @@ const AutocompleteInput = ({ options, onSelect, isDestroy, isSelect, className, 
         onChange={handleInputChange}
         placeholder={placeholder}
         aria-label={placeholder}
-        disabled={Boolean(selectedOption)}
-        className="absolute w-full h-full border-none outline-none ps-10 placeholder:text-gray-400 capitalize"
+        disabled={props?.isDisabled || (isSelect ? false : Boolean(selectedOption))}
+        className="absolute w-full h-full border-none outline-none ps-10 placeholder:text-gray-400 capitalize placeholder:normal-case"
       />
 
       {inputValue && (
