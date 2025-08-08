@@ -3,6 +3,7 @@ import { useFetchPokemonList } from "../hooks";
 
 import { getPokemons, getPokemonTypes, getPokemonAbilities } from "../lib/api";
 
+import Section from "../layouts/Section";
 import { PokemonsList } from "../containers";
 import { Loader, AutocompleteInput } from "../components/ui";
 
@@ -66,12 +67,7 @@ export default function Home() {
   }, []);
 
   return (
-    <section className="pb-8">
-      <h2 className="text-3xl font-bold mb-2">Pokémon Encyclopedia</h2>
-      <p className="text-gray-600 dark:text-gray-400 mb-7">
-        Explore the world of Pokémon with detailed information on every species.
-      </p>
-
+    <Section className="pb-8">
       {/* Filters */}
       <div className="bg-gray-white dark:bg-gray-800 shadow-sm  rounded-2xl p-6 mb-7 flex gap-3 flex-wrap">
         <AutocompleteInput options={options?.pokemons || []} onSelect={handleChangeQuery} value={filters.query} fullWidth />
@@ -106,6 +102,6 @@ export default function Home() {
       ) : (
         <Loader/>
       )}
-    </section>
+    </Section>
   );
 }
