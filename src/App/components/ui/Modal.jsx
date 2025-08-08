@@ -6,18 +6,27 @@ export default function Modal({ isOpen, onClose, children, ...props }) {
   const ref = useRef(null);
 
   useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") handleClose();
+    }
+
     if (isOpen) {
       ref.current.focus();
       document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
+      document.body.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      document.body.removeEventListener("keydown", handleKeyDown);
     }
   }, [isOpen]);
 
   if (!isOpen) return null;
 
   const handleClose = () => {
+    console.log(document)
     onClose();
+    document.body.classList.remove("overflow-hidden");
   }
 
   return (
