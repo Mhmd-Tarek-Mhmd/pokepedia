@@ -15,7 +15,7 @@ const getIds = (filters) => {
   return [];
 }
 
-export default function HomePage() {
+export default function Home() {
   const [offset, setOffset] = useState(0);
   const [filters, setFilters] = useState(filtersInitialState);
   const [options, setOptions] = useState({

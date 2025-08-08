@@ -1,12 +1,9 @@
-import Layout from "./layout";
-import HomePage from "./pages/HomePage";
+import { createRouter, RouterProvider } from '@tanstack/react-router'
 
-function App() {
-  return (
-    <Layout>
-      <HomePage />
-    </Layout>
-  );
+import routeTree from "./routes";
+
+const router = createRouter({ routeTree })
+
+export default function App() {
+  return <RouterProvider router={router} />
 }
-
-export default App;
