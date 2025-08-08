@@ -1,3 +1,5 @@
+import { PokemonTypesBadges, PokemonAbilitiesBadges } from "./PokemonBadges";
+
 export default function PokemonCard({ pokemon }) {
   return (
     <article
@@ -16,13 +18,8 @@ export default function PokemonCard({ pokemon }) {
 
         <h3 className="text-lg font-semibold mb-2 truncate capitalize">{pokemon.name}</h3>
 
-        <ul aria-label={pokemon.name + " types"} className="flex flex-wrap gap-2 mt-auto">
-          {pokemon?.types?.map((type) => (
-            <li key={type} className="badge">
-              {type}
-            </li>
-          ))}
-        </ul>
+        <PokemonTypesBadges pokemon={pokemon} />
+        <PokemonAbilitiesBadges pokemon={pokemon} className="mt-2" />
       </div>
     </article>
   );

@@ -3,7 +3,7 @@ import { useFetchPokemonList } from "../hooks";
 
 import { getPokemons, getPokemonTypes, getPokemonAbilities } from "../lib/api";
 
-import { PokemonsList } from "../components/index.js";
+import { PokemonsList } from "../containers";
 import { Loader, AutocompleteInput } from "../components/ui";
 
 const limit = 20;

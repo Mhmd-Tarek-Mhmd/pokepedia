@@ -1,6 +1,5 @@
 import { useState } from "react";
-import PokemonCard from "./PokemonCard";
-import PokemonModal  from "./PokemonModal";
+import { PokemonCard, PokemonModal } from "../components";
 
 function PokemonsList({ pokemons }) {
   const [modal, setModal] = useState(null);

@@ -1,2 +1,3 @@
+export  { default as PokemonCard } from "./PokemonCard";
 export { default as ThemeToggler } from "./ThemeToggler";
-export  { default as PokemonsList } from "./PokemonsList";
+export  { default as PokemonModal } from "./PokemonModal";

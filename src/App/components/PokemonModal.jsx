@@ -1,4 +1,5 @@
 import { Modal } from "./ui";
+import { PokemonTypesBadges } from "./PokemonBadges";
 
 const PokemonModal = ({ pokemon, isOpen, onClose }) => {
   return (
@@ -20,9 +21,7 @@ const PokemonModal = ({ pokemon, isOpen, onClose }) => {
                 )}
 
                 <div className="flex gap-2 mb-6">
-                  {pokemon?.types?.map((type) => (
-                    <span key={type} className="badge badge-lg">{type}</span>
-                  ))}
+                  <PokemonTypesBadges pokemon={pokemon} />
                 </div>
 
                 {pokemon?.species?.description && (
@@ -134,7 +133,6 @@ const getStatColor = (value, max) => {
 
 const PokemonStats = ({ stats }) => {
   const totalStats = stats?.reduce((sum, stat) => sum + stat?.base, 0);
-
   return (
     <div className="bg-surface rounded-2xl p-6 shadow-md space-y-4">
       {stats?.map((stat) => {
