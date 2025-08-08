@@ -29,11 +29,11 @@ const Navigations = () => {
     <nav className="flex items-center gap-2">
       {location.pathname === "/favourites" ? null : (
         <Link
-          to='favourites'
-          aria-label="Navigate to favourites list"
-          className="icon-btn text-black dark:text-white"
+          to="/favourites"
+          className="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         >
           <HeartIcon />
+          <span>Favourites</span>
         </Link>
       )}
     </nav>

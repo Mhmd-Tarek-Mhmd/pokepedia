@@ -1,5 +1,6 @@
 import { Modal } from "./ui";
 import { PokemonTypesBadges } from "./PokemonBadges";
+import PokemonFavouriteToggler from "./PokemonFavouriteToggler";
 
 const PokemonModal = ({ pokemon, isOpen, onClose }) => {
   return (
@@ -10,8 +11,9 @@ const PokemonModal = ({ pokemon, isOpen, onClose }) => {
           <div className="flex items-center flex-wrap-reverse md:flex-nowrap gap-8">
             <div className="flex flex-col justify-between">
               <div>
-                <div className="flex items-baseline mb-2">
-                  <h2 className="text-3xl md:text-4xl font-bold mr-3 capitalize">{pokemon?.name}</h2>
+                <div className="flex items-center gap-2 mb-2">
+                  <h2 className="text-3xl md:text-4xl font-bold capitalize">{pokemon?.name}</h2>
+                  <PokemonFavouriteToggler pokemon={pokemon} className="mt-2" />
                 </div>
 
                 {pokemon?.species?.genus && (

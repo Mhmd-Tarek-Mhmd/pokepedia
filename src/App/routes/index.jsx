@@ -1,20 +1,27 @@
 import { createRootRoute, createRoute, Outlet } from "@tanstack/react-router";
 
 import Home from "./Home";
-import Layout from "../layout";
+import Layout from "../layouts";
+import Favourites from "./Favourites";
 
 const rootRoute = createRootRoute({
-  component: () => <Outlet />,
+  component: () => (
+    <Layout>
+      <Outlet />
+    </Layout>
+  ),
 })
 
 export const homeRoute = createRoute({
   path: '/',
   getParentRoute: () => rootRoute,
-  component: () => (
-    <Layout>
-      <Home />
-    </Layout>
-  ),
+  component: () => <Home />,
 });
 
-export default rootRoute.addChildren([homeRoute]);
+export const favouritesRoute = createRoute({
+  path: '/favourites',
+  component: () => <Favourites />,
+  getParentRoute: () => rootRoute,
+});
+
+export default rootRoute.addChildren([homeRoute, favouritesRoute]);
