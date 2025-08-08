@@ -100,7 +100,9 @@ const AutocompleteInput = ({ options, onSelect, isDestroy, isSelect, className, 
       aria-label={placeholder}
       className={clsx(
         props?.className,
-        "relative w-full h-full flex justify-between items-center gap-3 p-3 border-surface rounded-lg has-focus:border has-focus:border-slate-400"
+        { "flex-1": props.flexItem },
+        { "w-full": props.fullWidth },
+        "relative h-full flex justify-between items-center gap-3 p-3 border-surface rounded-lg has-focus:border has-focus:border-slate-400"
       )}
     >
       {props?.icon || <SearchIcon />}

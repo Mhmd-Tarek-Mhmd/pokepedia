@@ -39,3 +39,21 @@ export const getPokemonType = async (id) => {
   const res = await fetch(`${API_URL}/type/${id}`);
   return await res.json();
 }
+
+export const getPokemonAbilities = async () => {
+  const res = await fetch(`${API_URL}/ability?limit=999`);
+  const data = await res.json();
+  const abilities = await Promise.all(
+    data?.results.map(async (r) => await getPokemonAbility(r?.name))
+  );
+
+  return abilities?.reduce((acc, curr) => {
+    if (!curr?.pokemon?.length) return acc;
+    return [...acc, { label: curr?.name, value: curr?.pokemon?.map(p => p?.pokemon?.name) }];
+  }, []);
+}
+
+export const getPokemonAbility = async (id) => {
+  const res = await fetch(`${API_URL}/ability/${id}`);
+  return await res.json();
+}

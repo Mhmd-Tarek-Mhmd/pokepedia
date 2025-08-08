@@ -1,23 +1,28 @@
 import { useEffect, useState } from "react";
 import { useFetchPokemonList } from "../hooks";
 
-import { getPokemons, getPokemonTypes } from "../lib/api";
+import { getPokemons, getPokemonTypes, getPokemonAbilities } from "../lib/api";
 
-import { PokemonsList } from "../components";
+import { PokemonsList } from "../components/index.js";
 import { Loader, AutocompleteInput } from "../components/ui";
 
 const limit = 20;
-const filtersInitialState = { query: null, type: null };
+const filtersInitialState = { query: null, type: null, ability: null };
 const getIds = (filters) => {
   if (filters.query) return [filters.query?.value];
   if (filters.type) return filters.type?.value;
+  if (filters.ability) return filters.ability?.value;
   return [];
 }
 
 export default function HomePage() {
   const [offset, setOffset] = useState(0);
   const [filters, setFilters] = useState(filtersInitialState);
-  const [options, setOptions] = useState({ pokemons: [], types: [] });
+  const [options, setOptions] = useState({
+    types: [],
+    pokemons: [],
+    abilities: [],
+  });
   const {
     data,
     reset,
@@ -44,14 +49,19 @@ export default function HomePage() {
     handleChange({ type });
   }
 
+  const handleChangeAbility = (ability) => {
+    handleChange({ ability });
+  }
+
   useEffect(() => {
     (async () => {
       const data = await getPokemons(99999);
       const pokemons = data?.results?.map(r => ({ label: r.name, value: r.name }));
 
       const types = await getPokemonTypes();
+      const abilities = await getPokemonAbilities();
 
-      setOptions(prev => ({ ...prev, pokemons, types }));
+      setOptions(prev => ({ ...prev, pokemons, types, abilities }));
     })();
   }, []);
 
@@ -63,9 +73,10 @@ export default function HomePage() {
       </p>
 
       {/* Filters */}
-      <div className="bg-gray-white dark:bg-gray-800 shadow-sm  rounded-2xl p-6 mb-7 flex gap-3">
-        <AutocompleteInput options={options?.pokemons || []} onSelect={handleChangeQuery} className="flex-1/2" value={filters.query} />
-        <AutocompleteInput isSelect placeholder="Select a type" options={options?.types} onSelect={handleChangeType} className="flex-1/2" value={filters.type} />
+      <div className="bg-gray-white dark:bg-gray-800 shadow-sm  rounded-2xl p-6 mb-7 flex gap-3 flex-wrap">
+        <AutocompleteInput options={options?.pokemons || []} onSelect={handleChangeQuery} value={filters.query} fullWidth />
+        <AutocompleteInput isSelect placeholder="Select a type" options={options?.types} onSelect={handleChangeType} value={filters.type} flexItem />
+        <AutocompleteInput isSelect placeholder="Select an ability" options={options?.abilities} onSelect={handleChangeAbility} value={filters.ability} flexItem />
       </div>
 
       {!isInitialLoading ? (
