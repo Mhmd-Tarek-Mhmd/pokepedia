@@ -1,8 +1,8 @@
 import { useFavourites } from "../hooks";
 
+import { XIcon } from "../components/ui";
 import Section from "../layouts/Section";
 import { FavouritesList } from "../containers";
-import { XIcon } from "../components/ui/Icons";
 
 const Favourites = () => {
   const { favourites, clear } = useFavourites();
@@ -14,7 +14,7 @@ const Favourites = () => {
           <button
             type="button"
             onClick={clear}
-            className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors mb-4"
+            className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors mb-4 cursor-pointer"
           >
             <XIcon />
             <span>Clear All Favorites</span>

@@ -9,6 +9,7 @@ function PokemonFavouriteToggler({ pokemon, className }) {
   const isFavourite = Boolean(favourites.find(fav => fav.id === pokemon.id));
 
   const handleToggle = (e) => {
+    e.preventDefault();
     e.stopPropagation();
     toggle(pokemon);
   }
