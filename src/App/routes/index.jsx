@@ -3,10 +3,12 @@ import { createRootRoute, createRoute } from "@tanstack/react-router";
 import Home from "./Home";
 import Root from "./__root";
 import Pokemon from "./Pokemon";
+import NotFound from "./NotFound";
 import Favourites from "./Favourites";
 
 const rootRoute = createRootRoute({
   component: Root,
+  notFoundComponent: NotFound,
 })
 
 export const homeRoute = createRoute({
