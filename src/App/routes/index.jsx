@@ -1,33 +1,29 @@
-import { createRootRoute, createRoute, Outlet } from "@tanstack/react-router";
+import { createRootRoute, createRoute } from "@tanstack/react-router";
 
 import Home from "./Home";
-import Layout from "../layouts";
+import Root from "./__root";
 import Pokemon from "./Pokemon";
 import Favourites from "./Favourites";
 
 const rootRoute = createRootRoute({
-  component: () => (
-    <Layout>
-      <Outlet />
-    </Layout>
-  ),
+  component: Root,
 })
 
 export const homeRoute = createRoute({
   path: '/',
+  component: Home,
   getParentRoute: () => rootRoute,
-  component: () => <Home />,
 });
 
 export const favouritesRoute = createRoute({
   path: '/favourites',
-  component: () => <Favourites />,
+  component: Favourites,
   getParentRoute: () => rootRoute,
 });
 
 export const pokemonRoute = createRoute({
   path: '/pokemon/$pokemonId',
-  component: () => <Pokemon />,
+  component: Pokemon,
   getParentRoute: () => rootRoute,
 });
 
